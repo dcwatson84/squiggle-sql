@@ -1,14 +1,11 @@
 package com.truemesh.squiggle;
 
-import java.util.Set;
+import com.truemesh.squiggle.output.Outputable;
 
-import com.truemesh.squiggle.output.Output;
 
-public class Parameter implements Matchable {
-	public void write(Output out) {
-		out.print("?");
-	}
+public interface Parameter extends Outputable {
+	
+	public String getParameterName();
+	public Object getParameterValue();
 
-	public void addReferencedTablesTo(Set<Table> tables) {
-	}
 }

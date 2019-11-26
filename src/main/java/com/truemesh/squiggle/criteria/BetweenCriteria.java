@@ -1,26 +1,28 @@
 package com.truemesh.squiggle.criteria;
 
-import com.truemesh.squiggle.Criteria;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.List;
+import java.util.Set;
+
 import com.truemesh.squiggle.Matchable;
-import com.truemesh.squiggle.Table;
+import com.truemesh.squiggle.Tabular;
 import com.truemesh.squiggle.literal.BigDecimalLiteral;
 import com.truemesh.squiggle.literal.DateTimeLiteral;
 import com.truemesh.squiggle.literal.FloatLiteral;
 import com.truemesh.squiggle.literal.IntegerLiteral;
 import com.truemesh.squiggle.output.Output;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.Set;
+import com.truemesh.squiggle.parameters.Parameters;
 
 /**
  * Class BetweenCriteria is a Criteria extension that generates the SQL syntax
  * for a BETWEEN operator in an SQL Where clause.
  * 
- * @author <a href="mailto:derek@derekmahar.ca">Derek Mahar</a>
- * @author Nat Pryce
+ * 
+ * 
+ * 
  */
-public class BetweenCriteria implements Criteria {
+public class BetweenCriteria extends BaseCriteria {
 	private final Matchable column;
 	private final Matchable lower, upper;
 
@@ -68,7 +70,17 @@ public class BetweenCriteria implements Criteria {
         upper.write(out);
 	}
 
-	public void addReferencedTablesTo(Set<Table> tables) {
+
+	public void addReferencedTablesTo(Set<Tabular> tables) {
 		column.addReferencedTablesTo(tables);
 	}
+
+	@Override
+	public void addParameterValues(List<Object> parameters) {
+		Parameters.addParameterValues(parameters, column);
+		Parameters.addParameterValues(parameters, lower);
+		Parameters.addParameterValues(parameters, upper);
+	}
+	
+	
 }

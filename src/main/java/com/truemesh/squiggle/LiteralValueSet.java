@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
+import java.util.List;
 
 import com.truemesh.squiggle.literal.BigDecimalLiteral;
 import com.truemesh.squiggle.literal.DateTimeLiteral;
@@ -12,9 +12,17 @@ import com.truemesh.squiggle.literal.FloatLiteral;
 import com.truemesh.squiggle.literal.IntegerLiteral;
 import com.truemesh.squiggle.literal.StringLiteral;
 import com.truemesh.squiggle.output.Output;
+import com.truemesh.squiggle.parameters.Parameters;
 
+/**
+ * 
+ * 
+ *
+ */
+@SuppressWarnings("rawtypes")
 public class LiteralValueSet implements ValueSet {
-    private final Collection<Literal> literals;
+	
+	private final Collection<Literal> literals;
 
     public LiteralValueSet(Collection<Literal> literals) {
         this.literals = literals;
@@ -46,12 +54,11 @@ public class LiteralValueSet implements ValueSet {
     }
 
     public void write(Output out) {
-        for (Iterator<Literal> it = literals.iterator(); it.hasNext();) {
-            Literal literal = it.next();
-            literal.write(out);
-            if (it.hasNext()) {
-                out.print(", ");
-            }
-        }
+    	Output.appendList(out, literals, SqlConstants.LIST_SEPARATOR_WITH_SPACE);
     }
+
+	@Override
+	public void addParameterValues(List<Object> parameters) {
+		Parameters.addParameterValues(parameters, literals);
+	}
 }

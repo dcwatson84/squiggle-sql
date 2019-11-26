@@ -1,15 +1,22 @@
 package com.truemesh.squiggle.criteria;
 
-import com.truemesh.squiggle.*;
-import com.truemesh.squiggle.output.Output;
-
+import java.util.List;
 import java.util.Set;
 
+import com.truemesh.squiggle.LiteralValueSet;
+import com.truemesh.squiggle.Matchable;
+import com.truemesh.squiggle.Table;
+import com.truemesh.squiggle.Tabular;
+import com.truemesh.squiggle.ValueSet;
+import com.truemesh.squiggle.output.Output;
+import com.truemesh.squiggle.parameters.Parameters;
+
 /**
- * @author <a href="joe@truemesh.com">Joe Walnes</a>
- * @author Nat Pryce
+ * 
+ * 
+ * 
  */
-public class InCriteria implements Criteria {
+public class InCriteria extends BaseCriteria {
     private final Matchable matched;
     private final ValueSet valueSet;
 
@@ -63,7 +70,13 @@ public class InCriteria implements Criteria {
         out.print(")");
     }
 
-    public void addReferencedTablesTo(Set<Table> tables) {
+    public void addReferencedTablesTo(Set<Tabular> tables) {
         matched.addReferencedTablesTo(tables);
     }
+
+	@Override
+	public void addParameterValues(List<Object> parameters) {
+		Parameters.addParameterValues(parameters, matched);
+		Parameters.addParameterValues(parameters, valueSet);
+	}
 }

@@ -1,19 +1,20 @@
 package com.truemesh.squiggle.criteria;
 
-import com.truemesh.squiggle.Criteria;
-import com.truemesh.squiggle.Table;
-import com.truemesh.squiggle.output.Output;
-
+import java.util.List;
 import java.util.Set;
+
+import com.truemesh.squiggle.Tabular;
+import com.truemesh.squiggle.output.Output;
 
 /**
  * Class NoCriteria is a Criteria that represents an absent operand in an SQL
  * predicate expression so that one may represent a unary operator (for example,
  * {@link NOT}) using a binary operator derived from a {@link BaseLogicGroup}).
  * 
- * @author <a href="mailto:derek@derekmahar.ca">Derek Mahar</a>
+ * 
+ * 
  */
-public class NoCriteria implements Criteria {
+public class NoCriteria extends BaseCriteria {
 	/**
 	 * Writes an empty criteria (single space) to the given output stream.
 	 * 
@@ -23,6 +24,9 @@ public class NoCriteria implements Criteria {
 		out.print(' ');
 	}
 
-	public void addReferencedTablesTo(Set<Table> tables) {
+	public void addReferencedTablesTo(Set<Tabular> tables) {
 	}
+	
+	@Override
+	public void addParameterValues(List<Object> parameters) {}
 }

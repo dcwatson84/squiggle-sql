@@ -1,25 +1,34 @@
 package com.truemesh.squiggle.criteria;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.truemesh.squiggle.Column;
-import com.truemesh.squiggle.Criteria;
 import com.truemesh.squiggle.Matchable;
 import com.truemesh.squiggle.Table;
+import com.truemesh.squiggle.Tabular;
 import com.truemesh.squiggle.literal.BooleanLiteral;
 import com.truemesh.squiggle.literal.FloatLiteral;
 import com.truemesh.squiggle.literal.IntegerLiteral;
 import com.truemesh.squiggle.literal.StringLiteral;
 import com.truemesh.squiggle.output.Output;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Set;
+import com.truemesh.squiggle.parameters.Parameters;
 
 /**
- * @author <a href="joe@truemesh.com">Joe Walnes</a>
- * @author <a href="derek@derekmahar.ca">Derek Mahar</a>
- * @author Nat Pryce
+ * 
+ * 
+ * 
+ * 
  */
-public class MatchCriteria implements Criteria {
+public class MatchCriteria extends BaseCriteria {
+	
+	protected static final Logger LOGGER = LoggerFactory.getLogger(MatchCriteria.class);
+	
     public static final String EQUALS = "=";
     public static final String GREATER = ">";
     public static final String GREATEREQUAL = ">=";
@@ -111,13 +120,21 @@ public class MatchCriteria implements Criteria {
     }
     
     public void write(Output out) {
-    	left.write(out);
+    	//left.write(out);
+    	out.print(left);
         out.print(' ').print(operator).print(' ');
-        right.write(out);
+        out.print(right);
+        //right.write(out);
     }
 
-	public void addReferencedTablesTo(Set<Table> tables) {
+    public void addReferencedTablesTo(Set<Tabular> tables) {
 		left.addReferencedTablesTo(tables);
 		right.addReferencedTablesTo(tables);
+	}
+    
+    @Override
+	public void addParameterValues(List<Object> parameters) {
+		Parameters.addParameterValues(parameters, left);
+		Parameters.addParameterValues(parameters, right);
 	}
 }

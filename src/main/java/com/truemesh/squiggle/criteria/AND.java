@@ -16,12 +16,13 @@ import com.truemesh.squiggle.Criteria;
  * // ( table.col1 = 1 AND table.col2 = 2 )
  * </pre>
  * 
- * @author <a href="mailto:joe@truemesh.com">Joe Walnes</a>
+ * 
+ * 
  */
 public class AND extends BaseLogicGroup {
 
-    public AND(Criteria left, Criteria right) {
-        super("AND", left, right);
+    public AND(Criteria... parts) {
+        super("AND", parts);
     }
 
 }

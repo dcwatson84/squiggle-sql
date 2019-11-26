@@ -16,12 +16,13 @@ import com.truemesh.squiggle.Criteria;
  * // ( table.col1 = 1 OR table.col2 = 2 )
  * </pre>
  * 
- * @author <a href="mailto:joe@truemesh.com">Joe Walnes</a>
+ * 
+ * 
  */
 public class OR extends BaseLogicGroup {
 
-    public OR(Criteria left, Criteria right) {
-        super("OR", left, right);
+    public OR(Criteria... parts) {
+        super("OR", parts);
     }
 
 }

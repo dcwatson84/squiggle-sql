@@ -1,9 +1,10 @@
 package com.truemesh.squiggle.literal;
 
 /**
- * @author Nat Pryce
+ * 
+ * 
  */
-public class BooleanLiteral extends LiteralWithSameRepresentationInJavaAndSql {
+public class BooleanLiteral extends LiteralWithSameRepresentationInJavaAndSql<Boolean> {
 	public static BooleanLiteral TRUE = new BooleanLiteral(true);
 	public static BooleanLiteral FALSE = new BooleanLiteral(false);
 	

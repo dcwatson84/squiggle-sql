@@ -1,19 +1,33 @@
 package com.truemesh.squiggle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.truemesh.squiggle.output.Output;
 
 /**
  * Special column to represent For SELECT * FROM ...
  * 
- * @author <a href="joe@truemesh.com">Joe Walnes</a>
- * @author Nat Pryce
+ * 
+ * 
+ * 
  */
 public class WildCardColumn extends Projection {
-    public WildCardColumn(Table table) {
+	
+	protected static final Logger LOGGER = LoggerFactory.getLogger(WildCardColumn.class);
+	
+    public WildCardColumn(Tabular table) {
         super(table);
     }
 
 	public void write(Output out) {
-        out.print(getTable().getAlias()).print(".*");
+		String alias = getTable().getAlias();
+		if(alias != null) out.print(alias).print(".");
+        out.print("*");
+	}
+
+	@Override
+	public void writeContent(Output out) {
+		
 	}
 }

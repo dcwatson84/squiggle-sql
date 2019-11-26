@@ -6,7 +6,7 @@ import com.truemesh.squiggle.Criteria;
  * Class NOT is a {@link BaseLogicGroup} extension that generates the SQL syntax
  * for the negation operator in a condition in an SQL Where clause.
  * 
- * @author <a href="mailto:derek@derekmahar.ca">Derek Mahar</a>
+ * 
  */
 public class NOT extends BaseLogicGroup {
   /**

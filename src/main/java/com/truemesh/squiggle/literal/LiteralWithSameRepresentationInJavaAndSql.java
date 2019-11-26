@@ -4,16 +4,24 @@ import com.truemesh.squiggle.Literal;
 import com.truemesh.squiggle.output.Output;
 
 /**
- * @author Nat Pryce
+ * 
+ * 
  */
-public abstract class LiteralWithSameRepresentationInJavaAndSql extends Literal {
-	private final Object literalValue;
+public abstract class LiteralWithSameRepresentationInJavaAndSql<C> extends Literal<C> {
+	//private final Object literalValue;
 
-	protected LiteralWithSameRepresentationInJavaAndSql(Object literalValue) {
-		this.literalValue = literalValue;
+	protected LiteralWithSameRepresentationInJavaAndSql(C literalValue) {
+		this.parameterValue = literalValue;
 	}
 	
-	public void write(Output out) {
-		out.print(literalValue);
+	protected LiteralWithSameRepresentationInJavaAndSql(String alias,C literalValue) {
+		super(alias);
+		this.parameterValue = literalValue;
 	}
+
+	@Override
+	public void writeContent(Output out) {
+		out.print(parameterValue);
+	}
+	
 }

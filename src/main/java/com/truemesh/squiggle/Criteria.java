@@ -1,15 +1,16 @@
 package com.truemesh.squiggle;
 
+import java.util.Set;
+
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
 
-import java.util.Set;
-
 /**
- * @author <a href="joe@truemesh.com">Joe Walnes</a>
- * @author Nat Pryce
+ * 
+ * 
+ * 
  */
-public interface Criteria extends Outputable {
-  public void write(Output out);
-  public void addReferencedTablesTo(Set<Table> tables);
+public interface Criteria extends Outputable, HasParameters {
+    public void write(Output out);
+    public abstract void addReferencedTablesTo(Set<Tabular> tables);
 }

@@ -1,11 +1,11 @@
 package com.truemesh.squiggle.criteria;
 
-import com.truemesh.squiggle.Criteria;
-import com.truemesh.squiggle.Table;
-import com.truemesh.squiggle.output.Output;
-
 import java.util.List;
 import java.util.Set;
+
+import com.truemesh.squiggle.Criteria;
+import com.truemesh.squiggle.Tabular;
+import com.truemesh.squiggle.output.Output;
 
 /**
  * Class CriteriaExpression is Criteria class extension that generates the SQL
@@ -21,14 +21,23 @@ import java.util.Set;
  * </code>
  * </p>
  * 
- * @author <a href="mailto:derek@derekmahar.ca">Derek Mahar</a>
+ * 
+ * 
  */
-public class CriteriaExpression implements Criteria {
+public class CriteriaExpression extends BaseCriteria {
 	/**
 	 * Operator identifiers
 	 */
-	public enum Operator {
-		AND, OR;
+	public static interface Operator {
+		/**
+		 * Identifier for the AND operator.
+		 */
+		static final int AND = 0;
+
+		/**
+		 * Identifier for the OR operator.
+		 */
+		static final int OR = 1;
 	}
 
 	// Recursive reference to another expression.
@@ -36,7 +45,7 @@ public class CriteriaExpression implements Criteria {
 
 	// Operator that joins the initial criteria term with the trailing criteria
 	// expression.
-	private Operator operator;
+	private int operator;
 
 	// Initial criteria term in the expression.
 	private Criteria term;
@@ -79,7 +88,7 @@ public class CriteriaExpression implements Criteria {
 	 *            the trailing expression to assign to the new criteria
 	 *            expression.
 	 */
-	public CriteriaExpression(final Criteria term, Operator operator,
+	public CriteriaExpression(final Criteria term, int operator,
 			CriteriaExpression expression) {
 		this(term);
 		this.operator = operator;
@@ -99,7 +108,7 @@ public class CriteriaExpression implements Criteria {
 	 *            {@link Operator#OR OR} that joins each criteria term with the
 	 *            next in the list.
 	 */
-	public CriteriaExpression(final List<Criteria> terms, Operator operator) {
+	public CriteriaExpression(final List<Criteria> terms, int operator) {
 		this.operator = operator;
 		if (terms.size() == 0)
 			;
@@ -128,7 +137,7 @@ public class CriteriaExpression implements Criteria {
 	 * @return the operator, either {@link Operator#AND AND} or
 	 *         {@link Operator#OR OR}, in this criteria expression.
 	 */
-	public Operator getOperator() {
+	public int getOperator() {
 		return operator;
 	}
 
@@ -158,17 +167,23 @@ public class CriteriaExpression implements Criteria {
 	 */
 	public void write(Output out) {
 		if (term == null && expression == null) {
-	  } else if (expression == null) {
+			;
+	    } else if (expression == null) {
 			term.write(out);
 		} else if (operator == Operator.AND) {
-      new AND(term, expression).write(out);
+			new AND(term, expression).write(out);
 		} else if (operator == Operator.OR) {
-      new OR(term, expression).write(out);
+			new OR(term, expression).write(out);
 		}
 	}
 
-	public void addReferencedTablesTo(Set<Table> tables) {
+	public void addReferencedTablesTo(Set<Tabular> tables) {
 		term.addReferencedTablesTo(tables);
 		if (expression != null) expression.addReferencedTablesTo(tables);
+	}
+
+	@Override
+	public void addParameterValues(List<Object> parameters) {
+		//TODO
 	}
 }

@@ -1,9 +1,11 @@
 package com.truemesh.squiggle.literal;
 
+
 /**
- * @author Nat Pryce
+ * 
+ * 
  */
-public class FloatLiteral extends LiteralWithSameRepresentationInJavaAndSql {
+public class FloatLiteral extends LiteralWithSameRepresentationInJavaAndSql<Double> {
 	public FloatLiteral(double literalValue) {
 		super(new Double(literalValue));
 	}
