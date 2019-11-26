@@ -90,9 +90,7 @@ public class Column extends Projection implements Matchable, Createable, NamedOb
 	public void writeContent(Output out) {
 		String alias = getTable().getAlias();
 		if(alias != null) out.print(alias+SqlConstants.CHILD_SEPARATOR);
-		out.print(SqlConstants.QUOTE);
-		out.print(getName());
-		out.print(SqlConstants.QUOTE);
+		writeName(out);
 	}
 
 	@Override

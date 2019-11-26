@@ -202,7 +202,7 @@ public class SquiggleTest {
 		
 		String sql = sq.toString();
 		//System.out.println("SQL:\n"+sql);
-		Assert.assertEquals(sql, "SELECT configTable.KEY, configTable.VALUE FROM \"CONFIGURATION\" configTable WHERE configTable.NAME = 'DF-ADMIN' AND configTable.KEY = 'ldap.int.url' ORDER BY configTable.KEY;");
+		Assert.assertEquals(sql, "SELECT configTable.\"KEY\", configTable.\"VALUE\" FROM \"CONFIGURATION\" configTable WHERE configTable.\"NAME\" = 'DF-ADMIN' AND configTable.\"KEY\" = 'ldap.int.url' ORDER BY configTable.\"KEY\";");
 		
 		outputStatement(sq);
 	}
