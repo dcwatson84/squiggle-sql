@@ -1,1 +1,1 @@
-
+# Squiggle SQL Generator
